@@ -1,0 +1,104 @@
+{
+	"env": {
+		"browser": true,
+		"node": true,
+		"jest": true,
+		"es6": true
+	},
+	"extends": "airbnb",
+	"parser": "babel-eslint",
+	"parserOptions": {
+		"ecmaFeatures": {
+			"experimentalObjectRestSpread": true,
+			"spread": true
+		}
+	},
+	"rules": {
+		"arrow-parens": ["error", "always"],
+		"comma-dangle": ["error", "always-multiline"],
+		"import/extensions": [ "off" ],
+		"import/no-extraneous-dependencies": [
+			"off",
+			{ "devDependencies": true }
+		],
+		"import/no-unresolved": [ "off" ],
+		"no-tabs": [ "off" ],
+		"indent": [
+			2,
+			"tab",
+			{ "SwitchCase": 1 }
+		],
+		"linebreak-style": [ 0, "windows" ],
+		"max-len": [ "error", 150 ],
+		"no-plusplus": "off",
+		"no-prototype-builtins": "off",
+		"no-unused-expressions": "off",
+		"react/jsx-filename-extension": [
+			1,
+			{ "extensions": [ ".js", ".jsx" ] }
+		],
+		"react/jsx-indent": [ 2, "tab" ],
+		"react/jsx-indent-props": [ 2, "tab" ],
+		"react/require-default-props": "off",
+		"react/sort-comp": [
+			"error",
+			{ "order": [
+				"static-methods",
+				"constructor",
+				"getInitialState",
+				"lifecycle",
+				"everything-else",
+				"/^on.+$/",
+				"/^render.+$/",
+				"render"
+			],
+			"groups" : {
+				"lifecycle": [
+					"displayName",
+					"propTypes",
+					"contextTypes",
+					"childContextTypes",
+					"mixins",
+					"statics",
+					"defaultProps",
+					"getDefaultProps",
+					"state",
+					"getChildContext",
+					"componentWillMount",
+					"componentDidMount",
+					"componentWillReceiveProps",
+					"shouldComponentUpdate",
+					"componentWillUpdate",
+					"componentDidUpdate",
+					"componentWillUnmount"
+			]}
+		}],
+		"require-jsdoc": [
+			2,
+			{
+				"require": {
+					"ArrowFunctionExpression": true,
+					"ClassDeclaration": true,
+					"FunctionDeclaration": true,
+					"MethodDefinition": true
+				}
+			}
+		],
+		// "spaced-comment" below is same as airbnb except block.exceptions has "*" to ignore our file-level comment blocks.
+		"spaced-comment": [
+			"error",
+			"always",
+			{
+				"line": {
+					"exceptions": [ "-", "+" ],
+					"markers": [ "=", "!" ] // space here to support sprockets directives
+				},
+				"block": {
+					"exceptions": [ "-", "+", "*" ],
+					"markers": [ "=", "!" ], // space here to support sprockets directives
+					"balanced": false
+				}
+			}
+		]
+	}
+}
