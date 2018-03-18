@@ -1,57 +1,40 @@
-<html>
-	<head>
-		<meta content="initial-scale=1.0" name="viewport">
-		<script src=
-		"https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"
-		type="text/javascript"></script>
-		<script src="https://cdn.jsdelivr.net/lodash/4.17.1/lodash.min.js"></script>
-		<script type="text/javascript" src="app.js"></script>
-		<link rel="stylesheet" type="text/css" href="style.css">
-		<title></title>
-	</head>
-	<body onload="startApp()">
-		<h2>
-			CS349 A3
-		</h2><!-- "Page" to show when not logged in -->
-		<div id="login">
-			<p>
-				<button id="start" class="btn">Log in</button>
-			</p>
-		</div><!-- "Page" to show when logged in -->
-		<div id="loggedin">
-			<!--<p><button class="button" onclick="load()">Load Songs</button></p> -->
-			<p>
-				<input type="text" name="num_text" id="num_text"/>
-			</p>
-			<p>
-				<button class="button" onclick="newtag()">Add tag</button>
-				<button class="button" onclick="deletetag()">Delete tag</button>
-			</p>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <!--
+      manifest.json provides metadata used when your web app is added to the
+      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
 
-			<p>
-			<a class="title">Tags:</a>
-			<p id="tag"></p>
-			<button class="button" onclick="applyalltags()">Match all</button>
-				<button class="button" onclick="applyanytags()">Match any</button>
-			</p>
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>React App</title>
+  </head>
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
 
-			<a class="title">Rating:</a><br>
-			<input type="radio" name="rating" id="r0">0
-			<input type="radio" name="rating" id="r1">1
-			<input type="radio" name="rating" id="r2">2
-			<input type="radio" name="rating" id="r3">3
-			<input type="radio" name="rating" id="r4">4
-			<input type="radio" name="rating" id="r5">5
-			<button class="button" onclick="applyrating()">Apply</button>
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
 
-			<p>
-				<a class="title">Playlists:</a>
-			</p>
-			<ol id="playlists"></ol>
-			<p>
-				<a class="title">Songs:</a>
-			</p>
-			<ol id="Songs"></ol>
-		</div>
-	</body>
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
 </html>

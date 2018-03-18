@@ -1,14 +1,35 @@
 {
-  "name": "a3",
-  "version": "1.0.0",
-  "description": "Update this file with info about your app, especially your enhancements.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
+  "name": "firstreactapp",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "lowdb": "^0.14.0"
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "make-action-creator": "^0.4.1",
+    "react": "^15.6.2",
+    "react-dom": "^15.6.2",
+    "react-redux": "^5.0.7",
+    "redux": "^3.7.2",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-immutable-state-invariant": "^2.1.0",
+    "redux-observable": "^0.18.0",
+    "rxjs": "^5.5.7",
+    "semantic-ui": "^2.3.0",
+    "semantic-ui-css": "^2.3.0",
+    "semantic-ui-react": "^0.78.3"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "eslint": "^4.18.2",
+    "eslint-plugin-react": "^7.7.0",
+    "react-scripts": "1.0.7",
+    "redux-devtools": "^3.4.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   }
 }
