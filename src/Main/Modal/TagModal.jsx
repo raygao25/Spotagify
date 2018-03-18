@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Icon, Divider, Modal } from 'semantic-ui-react';
+import { Button, Modal } from 'semantic-ui-react';
 import { isEmpty } from 'lodash';
 
 import Input from '../Common/Input';
@@ -90,6 +90,8 @@ tagModal.propTypes = {
 	closeTagModal: PropTypes.func.isRequired,
 	addTag: PropTypes.func.isRequired,
 	removeTag: PropTypes.func.isRequired,
+	saveTagChanges: PropTypes.func.isRequired,
+	discardTagChanges: PropTypes.func.isRequired,
 };
 
 export default tagModal;

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import { Input, Menu, Button, Icon } from 'semantic-ui-react';
+import { Input, Menu, Icon } from 'semantic-ui-react';
 
 
 /**

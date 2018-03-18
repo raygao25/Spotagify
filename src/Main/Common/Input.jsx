@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Input, Button, Icon } from 'semantic-ui-react';
+import { Input } from 'semantic-ui-react';
 
 
 /**
@@ -60,5 +60,11 @@ class MyInput extends React.Component {
 	}
 }
 
+MyInput.propTypes = {
+	icon: PropTypes.string,
+	placeholder: PropTypes.string,
+	onKeyDown: PropTypes.func,
+	style: PropTypes.shape(),
+};
 
 export default MyInput;

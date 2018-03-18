@@ -1,7 +1,5 @@
 import { Observable } from 'rxjs/Observable';
 import { combineEpics } from 'redux-observable';
-import { of, empty } from 'rxjs/operators';
-import { ajax } from 'rxjs/observable/dom/ajax';
 import {
 	loadPlaylists,
 	setPlaylists,

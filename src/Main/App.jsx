@@ -59,6 +59,8 @@ class Greeting extends Component {
 			// isLoggedIn: sessionStorage.getItem('Loggedin')
 		};
 	}
+
+	/* eslint-disable class-methods-use-this */
 	/** */
 	login() {
 		const url = `https://accounts.spotify.com/authorize?client_id=${client_id

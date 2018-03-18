@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Sidebar from './Sidebar/Sidebar.container';
 import MainPanel from './MainPanel/MainPanel.container';
-import { Dimmer, Loader } from 'semantic-ui-react';
 
 /**
  * Main component

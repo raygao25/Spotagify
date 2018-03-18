@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEmpty } from 'lodash';
-import { Input, Menu, Button, Icon, List, Divider, Header, Image, Dropdown, Modal } from 'semantic-ui-react';
+import { Icon, List, Divider, Header, Image, Dropdown } from 'semantic-ui-react';
 
 import TagModal from '../Modal/TagModal.container';
 
@@ -77,6 +76,14 @@ const MainPanel = (props) => {
 			}
 			<MainPanelList playlist={playlist} />
 		</div>);
+};
+
+FiltersDropDown.propTypes = {
+	openTagModal: PropTypes.func,
+};
+
+MainPanelList.propTypes = {
+	playlist: PropTypes.shape(),
 };
 
 MainPanel.propTypes = {
