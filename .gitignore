@@ -1,2 +1,4 @@
 node_modules/
 semantic/
+WebAPI/node_modules/
+.DS_Store/

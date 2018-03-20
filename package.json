@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "concurrently": "^3.5.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
@@ -23,13 +24,16 @@
     "babel-eslint": "^7.2.3",
     "eslint": "^4.18.2",
     "eslint-plugin-react": "^7.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
     "react-scripts": "1.0.7",
     "redux-devtools": "^3.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
+    "startall": "concurrently \"npm start\" \"cd webAPI && node app\"",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "proxy": "http://localhost:3001/"
 }
