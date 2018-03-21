@@ -38,10 +38,11 @@ const MainPanelList = (props) => {
 	return (
 		<List ordered style={{ marginLeft: '60px' }}>
 			{playlist && playlist.tracks && playlist.tracks.map((track) => (
-				<List.Item as="a" key={track.id}>
-					<Icon name="play" />
+				<List.Item key={track.id}>
+					<Icon name="video play" link onClick={() => console.log(track.name, ' clicked')} />
+					<Icon name="ellipsis horizontal" style={{ float: 'right' }} />
 					<List.Content>
-						<List.Header as="b">{track.name}</List.Header>
+						<List.Header onClick={() => console.log(track.name, ' clicked')}>{track.name}</List.Header>
 						<List.Description>
 							{track.artists.reduce((acc, cur) => (`${acc}, ${cur}`), '').substring(2)}
 							{' • '}
@@ -63,17 +64,31 @@ const MainPanel = (props) => {
 	const { playlist, tagModalOn, openTagModal } = props;
 	return (
 		<div className="MainPanel">
-			{playlist &&
+
 			<div>
 				<Header as="h2" style={{ marginLeft: '30px', marginTop: '20px' }}>
-					<Image circular src="https://i.scdn.co/image/3e8a2e1fbbe498621d012419c81bcc418fc927dd" />
-					{` ${playlist.name}`}
+					{playlist &&
+					<Image circular src="https://i.scdn.co/image/3e8a2e1fbbe498621d012419c81bcc418fc927dd" />}
+					{playlist && ` ${playlist.name}`}
 					<FiltersDropDown openTagModal={openTagModal} />
 					{tagModalOn && <TagModal />}
 				</Header>
 				<Divider />
 			</div>
-			}
+
+			{/* {playlist &&
+			<Sticky>
+				<iframe
+					src="https://open.spotify.com/embed?uri=spotify:track:1jEAOrekJF0h2Rvf6mpCLd"
+					title="spotifyPlayer"
+					width="600"
+					height="80"
+					frameBorder="0"
+					allowTransparency="true"
+					allow="encrypted-media"
+				/>
+			</Sticky>
+			} */}
 			<MainPanelList playlist={playlist} />
 		</div>);
 };

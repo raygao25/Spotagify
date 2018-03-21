@@ -6,7 +6,7 @@ import Main from './Main';
 
 /** */
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-	loadPlaylists: action.loadPlaylists.start,
+	initialLoad: action.initialLoad,
 	setUserInfo: action.setUserInfo,
 }, dispatch);
 

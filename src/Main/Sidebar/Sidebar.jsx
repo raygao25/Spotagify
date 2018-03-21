@@ -27,7 +27,7 @@ const Sidebar = (props) => {
 					<Icon
 						link
 						name="refresh"
-						onClick={() => props.loadPlaylists()}
+						onClick={() => props.getPlaylists()}
 					/>
 					<Icon
 						link
@@ -46,7 +46,7 @@ const Sidebar = (props) => {
 
 Sidebar.propTypes = {
 	playlists: PropTypes.shape().isRequired,
-	loadPlaylists: PropTypes.func,
+	getPlaylists: PropTypes.func,
 };
 
 export default Sidebar;

@@ -1,7 +1,12 @@
 import { Observable } from 'rxjs/Observable';
 import { combineEpics } from 'redux-observable';
+import { of } from 'rxjs/observable/of';
+import { ajax } from 'rxjs/observable/dom/ajax';
+
 import {
-	loadPlaylists,
+	initialLoad,
+	loadTags,
+	getPlaylists,
 	setPlaylists,
 	setTracks,
 } from '../Reducers/App.actions';
@@ -27,23 +32,49 @@ const fetchObservable = (url, token) => {
 	return observable;
 };
 
+
+/* --------------------------------------EPICS-------------------------------------- */
+
+/**
+ * Epic for initial load
+ */
+const initialLoadEpic = (action$) =>
+	action$.ofType(initialLoad.type)
+		.mergeMap(() =>
+			of(getPlaylists.start())
+				.concat(of(loadTags.start())));
+
+/**
+ * Epic to load tags
+ */
+const loadTagsEpic = (action$) =>
+	action$.ofType(loadTags.START)
+		.mergeMap(() =>
+			ajax.getJSON('api/tags')
+				.map((result) => loadTags.success(result))
+				.catch((error) => Observable.of({
+					type: 'FETCH_TAGS_FAILED',
+					payload: error.xhr.response,
+					error: true,
+				})));
+
 /**
  * Epic to load playlist titles
  */
 const getPlaylistsEpic = (action$, store) =>
-	action$.ofType(loadPlaylists.START)
+	action$.ofType(getPlaylists.START)
 		.debounceTime(1000)
 		.mergeMap(() => {
 			const user = store.getState().userInfo.user.userName;
 			const token = store.getState().userInfo.user.accessToken;
 			const url = `https://api.spotify.com/v1/users/${user}/playlists`;
 			return fetchObservable(url, token)
-				.map((result) => loadPlaylists.success(result));
+				.map((result) => getPlaylists.success(result));
 		});
 
 /** */
 const setPlaylistsEpic = (action$) =>
-	action$.ofType(loadPlaylists.SUCCESS)
+	action$.ofType(getPlaylists.SUCCESS)
 		.map((action) => {
 			const { payload } = action;
 			// console.log(payload);
@@ -91,6 +122,8 @@ const getTracksEpic = (action$, store) =>
 		});
 
 const rootEpic = combineEpics(
+	initialLoadEpic,
+	loadTagsEpic,
 	getPlaylistsEpic,
 	setPlaylistsEpic,
 	getTracksEpic,

@@ -56,7 +56,7 @@ class Main extends Component {
 			userName: 'meedooo',
 			accessToken: this.props.g_access_token,
 		});
-		this.props.loadPlaylists();
+		this.props.initialLoad();
 	}
 	/**
      *
@@ -79,7 +79,7 @@ class Main extends Component {
 }
 
 Main.propTypes = {
-	loadPlaylists: PropTypes.func,
+	initialLoad: PropTypes.func,
 	setUserInfo: PropTypes.func,
 	g_access_token: PropTypes.string,
 };

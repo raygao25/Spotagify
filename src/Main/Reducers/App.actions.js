@@ -1,6 +1,10 @@
 import makeActionCreator from 'make-action-creator';
 
-export const loadPlaylists = makeActionCreator('LOAD_PLAYLISTS');
+export const initialLoad = makeActionCreator('INITIAL_LOAD');
+
+export const loadTags = makeActionCreator('LOAD_TAGS');
+
+export const getPlaylists = makeActionCreator('LOAD_PLAYLISTS');
 
 export const setPlaylists = makeActionCreator('SET_PLAYLISTS');
 

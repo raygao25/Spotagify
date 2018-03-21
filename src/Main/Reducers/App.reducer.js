@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import { keyBy } from 'lodash';
 import {
 	setUserInfo,
-	loadPlaylists,
+	getPlaylists,
 	setPlaylists,
 	setTracks,
 	showPlaylist,
@@ -12,6 +12,7 @@ import {
 	removeTag,
 	saveTagChanges,
 	discardTagChanges,
+	loadTags,
 } from './App.actions';
 
 
@@ -69,7 +70,7 @@ const playlists = (state = initialPlalists, action) => {
 				...state,
 				currentPlaylist: payload,
 			};
-		case loadPlaylists.START:
+		case getPlaylists.START:
 		default:
 			return state;
 	}
@@ -81,12 +82,25 @@ const initialTagState = {
 	tagModalOn: false,
 };
 
+
+/* eslint-disable no-case-declarations */
+
 /**
  * Tag reducer
  */
 const tag = (state = initialTagState, action) => {
 	const { payload } = action;
 	switch (action.type) {
+		case loadTags.SUCCESS:
+			return {
+				...state,
+				tagList: {
+					...keyBy(payload, 'name'),
+				},
+				lastSavedTagList: {
+					...keyBy(payload, 'name'),
+				},
+			};
 		case openTagModal.type:
 			return {
 				...state,
@@ -106,11 +120,11 @@ const tag = (state = initialTagState, action) => {
 				},
 			};
 		case removeTag.type:
+			const { tagList: { [payload]: toRemove, ...toRemain } } = state;
 			return {
 				...state,
 				tagList: {
-					...state.tagList,
-					[payload]: false,
+					...toRemain,
 				},
 			};
 		case saveTagChanges.type:

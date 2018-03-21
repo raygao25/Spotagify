@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
-	loadPlaylists,
+	getPlaylists,
 	showPlaylist,
 } from '../Reducers/App.actions';
 import sidebar from './Sidebar';
@@ -13,7 +13,7 @@ const mapStateToProps = (state) => ({
 
 /** */
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-	loadPlaylists: loadPlaylists.start,
+	getPlaylists: getPlaylists.start,
 	showPlaylist,
 }, dispatch);
 
