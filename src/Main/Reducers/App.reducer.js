@@ -80,8 +80,8 @@ const initialTagState = {
 	tagList: {},
 	lastSavedTagList: {},
 	tagModalOn: false,
-	tagsToInsertIntoDb: [],
-	tagsToRemoveFromDb: [],
+	tagsToInsertBuffer: {},
+	tagsToRemoveBuffer: {},
 };
 
 
@@ -109,8 +109,8 @@ const tag = (state = initialTagState, action) => {
 				tagModalOn: true,
 				/* Lazy cleaning */
 				lastSavedTagList: { ...state.tagList },
-				tagsToInsertIntoDb: [],
-				tagsToRemoveFromDb: [],
+				tagsToInsertBuffer: {},
+				tagsToRemoveBuffer: {},
 			};
 		case closeTagModal.type:
 			return {
@@ -118,22 +118,47 @@ const tag = (state = initialTagState, action) => {
 				tagModalOn: false,
 			};
 		case addTag.type:
+			if (state.tagsToRemoveBuffer.hasOwnProperty(payload)) { // restore from trash bin
+				const { tagsToRemoveBuffer: { [payload]: trash, ...other } } = state;
+				return {
+					...state,
+					tagList: {
+						...state.tagList,
+						[payload]: { name: payload },
+					},
+					tagsToRemoveBuffer: {
+						...other,
+					},
+				};
+			}
 			return {
 				...state,
 				tagList: {
 					...state.tagList,
 					[payload]: { name: payload },
 				},
-				tagsToInsertIntoDb: [...state.tagsToInsertIntoDb, { name: payload }], // To be passed in insertMany
+				tagsToInsertBuffer: { ...state.tagsToInsertBuffer, [payload]: { name: payload } }, // To be passed in insertMany
 			};
 		case removeTag.type:
 			const { tagList: { [payload]: toRemove, ...toRemain } } = state;
+			if (state.tagsToInsertBuffer.hasOwnProperty(payload)) {
+				const { tagsToInsertBuffer: { [payload]: trash, ...other } } = state;
+				return {
+					...state,
+					tagList: {
+						...toRemain,
+					},
+					tagsToInsertBuffer: {
+						...other,
+					},
+				};
+			}
 			return {
 				...state,
 				tagList: {
 					...toRemain,
 				},
-				tagsToRemoveFromDb: [...state.tagsToRemoveFromDb, payload], // To be passed in deleteMany
+				tagsToRemoveBuffer: { ...state.tagsToRemoveBuffer, [payload]: { name: payload } }, // To be passed in deleteMany
 			};
 		case saveTagChanges.type:
 			return {
