@@ -4,4 +4,5 @@ WebAPI/node_modules/
 .DS_Store/
 src/.DS_Store
 WebAPI/.DS_Store
-
+package-lock.json
+WebAPI/package-lock.json
