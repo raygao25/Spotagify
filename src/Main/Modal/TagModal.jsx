@@ -86,7 +86,7 @@ class tagModal extends React.Component {
 }
 
 tagModal.propTypes = {
-	tags: PropTypes.arrayOf(PropTypes.string),
+	tags: PropTypes.shape(),
 	closeTagModal: PropTypes.func.isRequired,
 	addTag: PropTypes.func.isRequired,
 	removeTag: PropTypes.func.isRequired,

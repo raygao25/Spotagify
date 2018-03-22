@@ -10,11 +10,16 @@ const tagSchema = mongoose.Schema({
 const tagModel = mongoose.model('Tag', tagSchema);
 
 /**
- * Get All tags
+ * Get all tags
  */
 module.exports.getTags = (callback, limit) => tagModel.find(callback).limit(limit);
 
 /**
- * Add tags
+ * Insert tags
  */
-module.exports.addTags = () => null;
+module.exports.addTags = (payload, callback) => tagModel.insertMany(payload, callback);
+
+/**
+ * Delete tags
+ */
+module.exports.deleteTags = (payload, callback) => tagModel.deleteMany({ name: { $in: payload } }, callback);

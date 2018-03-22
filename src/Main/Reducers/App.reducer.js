@@ -80,6 +80,8 @@ const initialTagState = {
 	tagList: {},
 	lastSavedTagList: {},
 	tagModalOn: false,
+	tagsToInsertIntoDb: [],
+	tagsToRemoveFromDb: [],
 };
 
 
@@ -105,6 +107,10 @@ const tag = (state = initialTagState, action) => {
 			return {
 				...state,
 				tagModalOn: true,
+				/* Lazy cleaning */
+				lastSavedTagList: { ...state.tagList },
+				tagsToInsertIntoDb: [],
+				tagsToRemoveFromDb: [],
 			};
 		case closeTagModal.type:
 			return {
@@ -116,8 +122,9 @@ const tag = (state = initialTagState, action) => {
 				...state,
 				tagList: {
 					...state.tagList,
-					[payload]: true,
+					[payload]: { name: payload },
 				},
+				tagsToInsertIntoDb: [...state.tagsToInsertIntoDb, { name: payload }], // To be passed in insertMany
 			};
 		case removeTag.type:
 			const { tagList: { [payload]: toRemove, ...toRemain } } = state;
@@ -126,6 +133,7 @@ const tag = (state = initialTagState, action) => {
 				tagList: {
 					...toRemain,
 				},
+				tagsToRemoveFromDb: [...state.tagsToRemoveFromDb, payload], // To be passed in deleteMany
 			};
 		case saveTagChanges.type:
 			return {

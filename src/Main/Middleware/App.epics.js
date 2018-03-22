@@ -2,10 +2,14 @@ import { Observable } from 'rxjs/Observable';
 import { combineEpics } from 'redux-observable';
 import { of } from 'rxjs/observable/of';
 import { ajax } from 'rxjs/observable/dom/ajax';
+import { isEmpty } from 'lodash';
 
 import {
 	initialLoad,
 	loadTags,
+	postTags,
+	deleteTags,
+	saveTagChanges,
 	getPlaylists,
 	setPlaylists,
 	setTracks,
@@ -54,6 +58,55 @@ const loadTagsEpic = (action$) =>
 				.map((result) => loadTags.success(result))
 				.catch((error) => Observable.of({
 					type: 'FETCH_TAGS_FAILED',
+					payload: error.xhr.response,
+					error: true,
+				})));
+
+/**
+ * Epic to save tag changes
+ */
+const saveTagsEpic = (action$, store) =>
+	action$.ofType(saveTagChanges.type)
+		.map(() => {
+			const tagsToInsert = store.getState().tag.tagsToInsertIntoDb;
+			const tagsToRemove = store.getState().tag.tagsToRemoveFromDb;
+			if (!isEmpty(tagsToInsert)) {
+				return postTags.start({ payload: tagsToInsert });
+			} else if (!isEmpty(tagsToRemove)) {
+				return deleteTags.start({ payload: tagsToRemove });
+			}
+			return { type: 'EMPTY' };
+		});
+
+/**
+ * Epic to post tags
+ */
+const postTagsEpic = (action$) =>
+	action$.ofType(postTags.START)
+		.mergeMap((action) =>
+			ajax.post('api/tags', action.payload, { 'Content-Type': 'application/json' })
+				.map((result) => postTags.success(result))
+				.catch((error) => Observable.of({
+					type: 'POST_TAGS_FAILED',
+					payload: error.xhr.response,
+					error: true,
+				})));
+
+/**
+ * Epic to delete tags
+ */
+const deleteTagsEpic = (action$) =>
+	action$.ofType(deleteTags.START)
+		.mergeMap((action) =>
+			ajax({
+				method: 'DELETE',
+				url: 'api/tags',
+				body: action.payload,
+				headers: { 'Content-Type': 'application/json' },
+			})
+				.map((result) => deleteTags.success(result))
+				.catch((error) => Observable.of({
+					type: 'DELETE_TAGS_FAILED',
 					payload: error.xhr.response,
 					error: true,
 				})));
@@ -124,6 +177,9 @@ const getTracksEpic = (action$, store) =>
 const rootEpic = combineEpics(
 	initialLoadEpic,
 	loadTagsEpic,
+	saveTagsEpic,
+	postTagsEpic,
+	deleteTagsEpic,
 	getPlaylistsEpic,
 	setPlaylistsEpic,
 	getTracksEpic,

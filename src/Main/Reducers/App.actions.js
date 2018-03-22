@@ -4,6 +4,10 @@ export const initialLoad = makeActionCreator('INITIAL_LOAD');
 
 export const loadTags = makeActionCreator('LOAD_TAGS');
 
+export const postTags = makeActionCreator('POST_TAGS');
+
+export const deleteTags = makeActionCreator('DELETE_TAGS');
+
 export const getPlaylists = makeActionCreator('LOAD_PLAYLISTS');
 
 export const setPlaylists = makeActionCreator('SET_PLAYLISTS');

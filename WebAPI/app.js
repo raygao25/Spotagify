@@ -1,18 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 const tag = require('./models/tag');
 
 const app = express();
 
-app.get('/api', (req, res) => {
-	res.json({
-		root: 'Hello world!',
-	});
-});
-
-app.listen(3001, () => {
-	console.log('Hi there');
-});
+app.use(bodyParser.json());
 
 /**
  * Connect to tag db
@@ -25,6 +18,18 @@ db.once('open', () => {
 	console.log('DB tag is connected!');
 });
 
+
+app.get('/api', (req, res) => {
+	res.json({
+		root: 'Hello world!',
+	});
+});
+
+app.listen(3001, () => {
+	console.log('Hi there');
+});
+
+
 app.get('/api/tags', (req, res) => {
 	tag.getTags((err, tags) => {
 		if (err) throw err;
@@ -33,6 +38,21 @@ app.get('/api/tags', (req, res) => {
 	});
 });
 
+app.post('/api/tags', (req, res) => {
+	tag.addTags(req.body.payload, (err, tags) => {
+		if (err) throw err;
+		console.log('Inserted tags into db: ', tags);
+		res.json(tags);
+	});
+});
+
+app.delete('/api/tags', (req, res) => {
+	tag.deleteTags(req.body.payload, (err, tags) => {
+		if (err) throw err;
+		console.log('Deleted tags from db: ', tags);
+		res.json(tags);
+	});
+});
 // To remove
 // const mongoose = require('mongoose');
 
